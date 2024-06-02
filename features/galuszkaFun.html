@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galuszka Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 1.3em; /* Increased by 30% */
+            background-color: black;
+            color: white;
+        }
+
+        header h1 {
+            text-align: center;
+            border-bottom: 0.2vh solid white;
+        }
+
+        .mainPart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh; /* Ensure full height */
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center; /* Center the buttons horizontally */
+            align-items: center; /* Center the buttons vertically */
+            position: relative; /* Ensure proper z-index stacking */
+        }
+
+        button {
+            margin: 0.65vh; /* Increased by 30% */
+            padding: 1.3vh; /* Increased by 30% */
+            box-sizing: border-box;
+            border: 0.13vh solid white; /* Increased by 30% */
+            background-color: black;
+            color: white;
+            transition: all 0.3s ease;
+            border-radius: 10px; /* Increased border radius */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Increased box shadow */
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Neon-style glowing effect */
+            cursor: pointer;
+            position: fixed; /* Fix button position */
+            z-index: 1; /* Ensure other buttons are below Galuszka button */
+        }
+
+        button#galuszka {
+            z-index: 2; /* Ensure Galuszka button is above other buttons */
+        }
+
+        button:hover {
+            border: 0.13vh solid black; /* Increased by 30% */
+            background-color: white;
+            color: black;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Increased hover box shadow */
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Neon-style glowing effect */
+        }
+
+        #timer {
+            position: fixed;
+            bottom: 1.3em;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3; /* Ensure timer is above buttons */
+            background-color: black;
+            color: white;
+            padding: 0.5em 1em;
+            border: 0.5vh solid white;
+            border-radius: 10px;
+        }
+
+     #game-over-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 4; /* Ensure modal is above everything */
+    justify-content: center;
+    align-items: center;
+}
+
+#game-over-content {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 0.5vh solid white;
+}
+
+#game-over-buttons {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#game-over-buttons button {
+    margin: 10px;
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Try not to Galuszka.cz challenge</h1>
+    </header>
+
+    <div class="mainPart">
+        <div class="buttons" id="buttons-container">
+            <!-- Galuszka button -->
+            <button id="galuszka" onclick="handleGaluszkaClick()">Galuszka</button>
+        </div>
+    </div>
+
+    <div id="timer">5</div>
+
+    <!-- Game over modal -->
+    <div id="game-over-modal">
+        <div id="game-over-content">
+            <p>Game Over!</p>
+            <div id="game-over-buttons">
+                <button onclick="goToMenu()">Go to Menu</button>
+                <button onclick="tryAgain()">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let timerInterval;
+        let redirecting = false;
+        let mouseX = 0;
+        let mouseY = 0;
+        let galuszkaX = 0;
+        let galuszkaY = 0;
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            const galuszkaButton = document.getElementById("galuszka");
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            let firstTeleport = true;
+
+            // Generate random coordinates for the Galuszka button
+            galuszkaX = Math.random() * (screenWidth - 120);
+            galuszkaY = Math.random() * (screenHeight - 50);
+            galuszkaButton.style.left = galuszkaX + "px";
+            galuszkaButton.style.top = galuszkaY + "px";
+
+            // Generate Not Galuszka buttons
+            const buttonsContainer = document.getElementById("buttons-container");
+            const numNotGaluszka = 10; // Number of 'Not Galuszka' buttons
+            for (let i = 0; i < numNotGaluszka; i++) {
+                const notGaluszkaButton = document.createElement("button");
+                notGaluszkaButton.innerText = "Not Galuszka";
+                const notGaluszkaX = Math.random() * (screenWidth - 120);
+                const notGaluszkaY = Math.random() * (screenHeight - 50);
+                notGaluszkaButton.style.left = notGaluszkaX + "px";
+                notGaluszkaButton.style.top = notGaluszkaY + "px";
+                notGaluszkaButton.onclick = teleportNonGaluszkaButtons; // Add onclick event
+                buttonsContainer.appendChild(notGaluszkaButton);
+            }
+
+            // Move Galuszka button with mouse movement after first teleport
+            document.addEventListener("mousemove", function(event) {
+                mouseX = event.clientX;
+                mouseY = event.clientY;
+                if (!firstTeleport && !redirecting) {
+                    requestAnimationFrame(updateGaluszkaPosition);
+                }
+            });
+
+            // Teleport Galuszka button on screen click
+            document.body.addEventListener("click", function(event) {
+                if (event.target !== galuszkaButton) {
+                    const galuszkaRect = galuszkaButton.getBoundingClientRect();
+                    galuszkaButton.style.left = (event.clientX - galuszkaRect.width / 2) + "px";
+                    galuszkaButton.style.top = (event.clientY - galuszkaRect.height / 2) + "px";
+                    if (firstTeleport) firstTeleport = false;
+                    resetTimer();
+                }
+            });
+
+            // Start the timer
+            startTimer();
+        });
+
+        // Update Galuszka button position
+        function updateGaluszkaPosition() {
+            const galuszkaButton = document.getElementById("galuszka");
+            const dx = mouseX - galuszkaX;
+            const dy = mouseY - galuszkaY;
+            const step = 10; // Speed of movement
+            if (Math.abs(dx) > step || Math.abs(dy) > step) {
+                galuszkaX += dx / 5; // Smooth movement
+                galuszkaY += dy / 5; // Smooth movement
+                galuszkaButton.style.left = galuszkaX + "px";
+                galuszkaButton.style.top = galuszkaY + "px";
+                requestAnimationFrame(updateGaluszkaPosition);
+            } else {
+                galuszkaX = mouseX;
+                galuszkaY = mouseY;
+                galuszkaButton.style.left = mouseX + "px";
+                galuszkaButton.style.top = mouseY + "px";
+            }
+        }
+
+        // Start the timer countdown
+        function startTimer() {
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        // Update timer and redirect to website if time runs out
+        function updateTimer() {
+            if (!redirecting) {
+                const timerElement = document.getElementById("timer");
+                timerElement.textContent = parseInt(timerElement.textContent) - 1;
+                if (timerElement.textContent == 0) {
+                    clearInterval(timerInterval);
+                    window.open('http://galuszka.cz', '_blank');
+                    gameOver();
+                }
+            }
+        }
+
+        // Reset the timer back to 5
+        function resetTimer() {
+            document.getElementById("timer").textContent = "5";
+        }
+
+        // Handle Galuszka button click
+        function handleGaluszkaClick() {
+            clearInterval(timerInterval);
+            window.open('http://galuszka.cz', '_blank');
+            redirecting = true;
+            gameOver();
+        }
+
+        // Teleport all non-Galuszka buttons randomly
+        function teleportNonGaluszkaButtons() {
+            const buttons = document.querySelectorAll('button:not(#galuszka)');
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            buttons.forEach(button => {
+                const newX = Math.random() * (screenWidth - 120);
+                const newY = Math.random() * (screenHeight - 50);
+                button.style.left = newX + "px";
+                button.style.top = newY + "px";
+            });
+            resetTimer();
+        }
+
+        // Game over function
+        function gameOver() {
+            const gameOverModal = document.getElementById("game-over-modal");
+            gameOverModal.style.display = "flex";
+        }
+
+        // Function to go back to menu
+        function goToMenu() {
+            // Redirect to menu or perform any other action here
+            window.location.href='../index.html';
+        }
+
+        // Function to try again
+        function tryAgain() {
+            // Reload the page or perform any other action to restart the game
+            location.reload();
+        }
+    </script>
+</body>
+</html>

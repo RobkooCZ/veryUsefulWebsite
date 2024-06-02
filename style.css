@@ -1,0 +1,167 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.3em; /* Increased by 30% */
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+header h1 {
+    text-align: center;
+    border-bottom: 0.2vh solid white;
+}
+
+.mainPart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.mainPart .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+}
+
+.mainPart .buttons button {
+    flex: 1 0 20%;
+    margin: 0.65vh; /* Increased by 30% */
+    padding: 1.3vh; /* Increased by 30% */
+    box-sizing: border-box;
+    border: 0.13vh solid white; /* Increased by 30% */
+    background-color: black;
+    color: white;
+    transition: all 0.3s ease;
+    border-radius: 10px; /* Increased border radius */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Increased box shadow */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Neon-style glowing effect */
+}
+
+.mainPart .buttons button:hover {
+    border: 0.13vh solid black; /* Increased by 30% */
+    background-color: white;
+    color: black;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Increased hover box shadow */
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Neon-style glowing effect */
+}
+
+#goBack {
+    box-sizing: border-box;
+    border: 0.13vh solid white; /* Increased by 30% */
+    background-color: black;
+    color: white;
+    transition: all 0.3s ease;
+    padding: 1.3vh; /* Increased by 30% */
+    border-radius: 10px; /* Increased border radius */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Increased box shadow */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Neon-style glowing effect */
+}
+
+#goBack:hover {
+    border: 0.13vh solid black; /* Increased by 30% */
+    background-color: white;
+    color: black;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Increased hover box shadow */
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Neon-style glowing effect */
+}
+
+.mainPart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerSection,
+.inputSection,
+.outputSection,
+.buttonSection {
+    margin-bottom: 1.3vh; /* Increased by 30% */
+}
+
+.outputSection {
+    text-align: center;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+.inputSection {
+    display: flex;
+    align-items: center;
+}
+
+.inputSection input {
+    margin: 0;
+}
+
+.inputSection .multiply {
+    margin: 0 0.65vh; /* Increased by 30% */
+}
+
+.buttonSection {
+    display: flex;
+    justify-content: center;
+}
+
+#x {
+    margin-left: 0.65vh; /* Increased by 30% */
+    margin-right: 0.65vh; /* Increased by 30% */
+}
+
+.beautifulStyle{
+    border: 0.13vh solid white; /* Increased by 30% */
+    background-color: black;
+    color: white;
+    font-size: 1.3em; /* Increased by 30% */
+    border-radius: 10px; /* Increased border radius */
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Increased box shadow */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Neon-style glowing effect */
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.number {
+    position: fixed;
+    font-size: 2em; /* Decreased font size */
+    color: white;
+    animation: move 1s forwards;
+    opacity: 0;
+    left: calc(50% - 25px); /* Adjust as needed */
+    top: calc(50% - 25px); /* Adjust as needed */
+    color: black;
+    text-shadow: 
+        0 0 1px rgba(255, 255, 255, 0.8), /* Adjust opacity as needed */
+        0 0 2px rgba(255, 255, 255, 0.8), /* Adjust opacity as needed */
+        0 0 3px rgba(255, 255, 255, 0.8), /* Adjust opacity as needed */
+        0 0 4px rgba(255, 255, 255, 0.8), /* Adjust opacity as needed */
+        0 0 5px rgba(255, 255, 255, 0.8), /* Adjust opacity as needed */
+        0 0 6px rgba(255, 255, 255, 0.8), /* Adjust opacity as needed */
+        0 0 7px rgba(255, 255, 255, 0.8); /* Adjust opacity as needed */
+}
+
+@keyframes move {
+    0% {
+        opacity: 0;
+        transform: translateY(-50vh) rotate(0deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+.centeredImage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

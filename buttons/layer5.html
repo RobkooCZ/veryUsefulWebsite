@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You're wasting your time</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <h1>Find the correct button:)</h1>
+    </header>
+    <div class="mainPart">
+        <div class="buttons">
+            <button id="button1" onclick="checkButton(1)">Button 1</button>
+            <button id="button2" onclick="checkButton(2)">Button 2</button>
+            <button id="button3" onclick="checkButton(3)">Button 3</button>
+            <button id="button4" onclick="checkButton(4)">Button 4</button>
+            <button id="button5" onclick="checkButton(5)">Button 5</button>
+            <button id="button6" onclick="checkButton(6)">Button 6</button>
+            <button id="button7" onclick="checkButton(7)">Button 7</button>
+            <button id="button8" onclick="checkButton(8)">Button 8</button>
+            <button id="button9" onclick="checkButton(9)">Button 9</button>
+            <button id="button10" onclick="checkButton(10)">Button 10</button>
+            <button id="button11" onclick="checkButton(11)">Button 11</button>
+            <button id="button12" onclick="checkButton(12)">Button 12</button>
+            <button id="button13" onclick="checkButton(13)">Button 13</button>
+            <button id="button14" onclick="checkButton(14)">Button 14</button>
+            <button id="button15" onclick="checkButton(15)">Button 15</button>
+            <button id="button16" onclick="checkButton(16)">Button 16</button>
+            <button id="button17" onclick="checkButton(17)">Button 17</button>
+            <button id="button18" onclick="checkButton(18)">Button 18</button>
+            <button id="button19" onclick="checkButton(19)">Button 19</button>
+            <button id="button20" onclick="checkButton(20)">Button 20</button>
+        </div>
+    </div>
+
+    <script>
+        var correctButton = Math.floor(Math.random() * 20) + 1; // Selecting a random button initially
+        var count = 0;
+
+        function changeButton() {
+            var buttons = document.querySelectorAll('.buttons button');
+            if (count === 1) {
+                buttons[correctButton - 1].classList.remove("correct");
+                correctButton = Math.floor(Math.random() * 20) + 1; // Choose a new random button
+                buttons[correctButton - 1].classList.add("correct");
+                console.log("New correct button index: " + correctButton);
+            } else if (count === 2) {
+                buttons[correctButton - 1].classList.remove("correct");
+                correctButton = Math.floor(Math.random() * 20) + 1; // Choose a new random button
+                buttons[correctButton - 1].classList.add("correct");
+                console.log("New correct button index: " + correctButton);
+            } else if (count === 3) {
+                window.location.href='layer6.html'; // Redirect after the third correct click
+            }
+        }
+
+        function checkButton(buttonNumber) {
+            if (buttonNumber === correctButton) {
+                count++;
+                changeButton();
+            }
+        }
+
+        // Initially highlight the correct button
+        document.getElementById("button" + correctButton).classList.add("correct");
+        console.log("Initial correct button index: " + correctButton);
+    </script>
+</body>
+</html>
