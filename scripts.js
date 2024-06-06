@@ -62,47 +62,56 @@ function exponents() {
     }
 }
 
+// Function to find prime numbers up to a given number
 function findPrimes() {
+    // Get the input value as a number
     var number = parseInt(document.getElementById("number1").value);
-    var primes = [];
+    var primes = []; // Initialize an array to store prime numbers
 
+    // Loop through numbers from 2 up to the input number
     for (var i = 2; i <= number; i++) {
-        var isPrime = true;
+        var isPrime = true; // Assume the current number is prime initially
 
+        // Check for factors of the current number up to its square root
         for (var j = 2; j <= Math.sqrt(i); j++) {
             if (i % j === 0) {
-                isPrime = false;
-                break;
+                isPrime = false; // If a factor is found, mark the number as not prime
+                break; // Exit the loop since the number is not prime
             }
         }
 
+        // If the current number is prime, add it to the array of primes
         if (isPrime) {
             primes.push(i);
         }
     }
 
+    // Call a function to display the prime numbers with a delay
     displayPrimesWithDelay(primes);
 }
 
+// Function to display prime numbers with a delay
 function displayPrimesWithDelay(primes) {
     var outputDiv = document.getElementById("output");
     outputDiv.innerHTML = ""; // Clear previous output
     var index = 0;
 
+    // Function to display the next prime number with a delay
     function displayNextPrime() {
         if (index < primes.length) {
-            outputDiv.innerText += primes[index];
-            delay = primes[index+1] * 1000;
-            index++;
+            outputDiv.innerText += primes[index]; // Display the current prime number
+            delay = primes[index+1] * 1000; // Calculate the delay for the next prime number
+            index++; // Move to the next prime number
             if (index < primes.length) {
-                outputDiv.innerText += ", ";
+                outputDiv.innerText += ", "; // Add a comma if more prime numbers are remaining
             }
-            setTimeout(displayNextPrime, delay); // Delay in milliseconds
+            setTimeout(displayNextPrime, delay); // Set a delay before displaying the next prime number
         }
     }
 
-    displayNextPrime();
+    displayNextPrime(); // Start displaying prime numbers with a delay
 }
+
 
 function calculateExponent() {
     var base = parseFloat(document.getElementById("number1").value);
@@ -145,44 +154,51 @@ function displayResultWithEffects(result) {
     }
 }
 
+// Function to add commas to a number for better readability
 function numberWithCommas(x) {
     var parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
 }
 
+// Function to calculate the factorial of a number and display the calculation with a delay
 function factorial() {
     let number = document.getElementById("number1").value;
     number = parseFloat(number);
 
-    let factorialString = "1";
+    let factorialString = "1"; // Initialize the factorial string with the initial value
 
     let outputDiv = document.getElementById("output");
     outputDiv.innerHTML = ""; // Clear previous output
 
+    // Loop through each number to calculate the factorial
     for (let i = 2; i <= number; i++) {
-        let delay = Math.random() * 750; // Random delay in milliseconds
-        setTimeout(displayNumber, (i - 1) * delay, i);
+        let delay = Math.random() * 750; // Generate a random delay in milliseconds
+        setTimeout(displayNumber, (i - 1) * delay, i); // Set a timeout to display each number with a delay
     }
 
+    // Function to display each number in the factorial calculation
     function displayNumber(i) {
-        factorialString += " * " + i;
-        outputDiv.innerText = factorialString;
+        factorialString += " * " + i; // Append the current number to the factorial string
+        outputDiv.innerText = factorialString; // Display the updated factorial string
     }
 }
 
+// Function to generate a nonsensical sequence of numbers and display them with animation
 function generateNonsensicalSequence() {
-    var inputNumber = parseInt(document.getElementById("number1").value);
+    var inputNumber = parseInt(document.getElementById("number1").value); // Get the input number
     var outputDiv = document.getElementById("output");
     outputDiv.innerHTML = ""; // Clear previous output
 
+    // Check if the input is a valid number
     if (isNaN(inputNumber)) {
-        outputDiv.innerText = "Please enter a valid number.";
+        outputDiv.innerText = "Please enter a valid number."; // Display an error message if the input is not valid
         return;
     }
 
-    var sequence = [];
+    var sequence = []; // Initialize an array to store the sequence of numbers
 
+    // Generate random numbers and add them to the sequence
     for (var i = 0; i < inputNumber; i++) {
         sequence.push(Math.floor(Math.random() * 10000) + Math.floor(Math.random() * 1000)); // Generate random numbers between 0 and 11000
     }
@@ -190,8 +206,9 @@ function generateNonsensicalSequence() {
     // Clear previous animation classes
     outputDiv.className = "";
 
+    var positions = []; // Initialize an array to store the positions of the numbers
+
     // Generate random positions for each number
-    var positions = [];
     for (var j = 0; j < inputNumber; j++) {
         var x = Math.floor(Math.random() * window.innerWidth);
         var y = Math.floor(Math.random() * window.innerHeight);
@@ -200,17 +217,17 @@ function generateNonsensicalSequence() {
 
     // Create and append number elements with animation
     sequence.forEach((number, index) => {
-        var numberElement = document.createElement("div");
-        numberElement.classList.add("number");
-        numberElement.textContent = number;
-        numberElement.style.left = positions[index].x + "px";
-        numberElement.style.top = positions[index].y + "px";
-        outputDiv.appendChild(numberElement);
+        var numberElement = document.createElement("div"); // Create a div element for each number
+        numberElement.classList.add("number"); // Add a CSS class for styling
+        numberElement.textContent = number; // Set the text content to the generated number
+        numberElement.style.left = positions[index].x + "px"; // Set the left position
+        numberElement.style.top = positions[index].y + "px"; // Set the top position
+        outputDiv.appendChild(numberElement); // Append the number element to the output container
     });
 
     // Trigger CSS animation
-    outputDiv.offsetWidth; // Force reflow
-    outputDiv.classList.add("animate");
+    outputDiv.offsetWidth; // Force reflow to apply CSS changes
+    outputDiv.classList.add("animate"); // Add CSS class for animation
 }
 
 // Function to decompose a fraction into a sum of random fractions
@@ -344,8 +361,6 @@ function displayComplexDecomposition(decomposition) {
         outputDiv.innerHTML += `Decomposition ${i + 1}: ${decomposition[i]}<br>`;
     }
 }
-
-
 
 function startCounting() {
     // Get the sand counter element
@@ -578,23 +593,4 @@ function generateComplexFraction(decimal) {
     const numerator = Math.round(decimal * denominator); // Round to avoid floating-point issues
 
     return `${numerator}/${denominator}`;
-}
-
-function playGame(playerChoice) {
-    const choices = ['rock', 'paper', 'scissors'];
-    let computerChoice;
-
-    // Determine the computer's choice to ensure the player always loses
-    if (playerChoice === 'rock') {
-        computerChoice = 'paper';
-    } else if (playerChoice === 'paper') {
-        computerChoice = 'scissors';
-    } else {
-        computerChoice = 'rock';
-    }
-
-    // Display the result
-    const resultDiv = document.getElementById('result');
-    resultDiv.style.display = 'block';
-    resultDiv.innerHTML = `<h2>YOU LOST!<br>Computer chose ${computerChoice}. Try again:P</h2>`;
 }
