@@ -579,3 +579,22 @@ function generateComplexFraction(decimal) {
 
     return `${numerator}/${denominator}`;
 }
+
+function playGame(playerChoice) {
+    const choices = ['rock', 'paper', 'scissors'];
+    let computerChoice;
+
+    // Determine the computer's choice to ensure the player always loses
+    if (playerChoice === 'rock') {
+        computerChoice = 'paper';
+    } else if (playerChoice === 'paper') {
+        computerChoice = 'scissors';
+    } else {
+        computerChoice = 'rock';
+    }
+
+    // Display the result
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = `<h2>YOU LOST!<br>Computer chose ${computerChoice}. Try again:P</h2>`;
+}

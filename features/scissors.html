@@ -3,27 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Decimal to fraction</title>
+    <title>RPS</title>
     <link rel="stylesheet" href="../style.css">
     <script src="../scripts.js" defer></script>
     <link rel="icon" href="../images/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <header>
-        <h1>Am i finally done?</h1>
+        <h1>Funny game</h1>
     </header>
     <div class="mainPart">
         <div class="headerSection">
-            <h2>This is maybe the most useful thing on this website</h2>
+            <h2>Totally fair game</h2>
         </div>
-        <div class="inputSection">
-            <input type="text" id="decimalNumber" class="beautifulStyle" placeholder="Enter a decimal number">
+        <div class="images">
+            <button onclick="playGame('rock')">
+                <img src="../images/rocko.png" alt="Rock">
+            </button>
+            <button onclick="playGame('paper')">
+                <img src="../images/paper.png" alt="Paper">
+            </button>
+            <button onclick="playGame('scissors')">
+                <img src="../images/scissors.png" alt="Scissors">
+            </button>
         </div>
-        <div class="buttonSection">
-            <button id="goBack" onclick="convertDecimalToComplexFraction()">Convert</button>
-        </div>
-        <div class="outputSection">
-            <div id="output"></div>
+        <div class="result" id="result">
+            <h2></h2>
         </div>
         <div class="buttonSection">
             <button id="goBack" onclick="window.location.href='../index.html';">Back to main menu</button>
