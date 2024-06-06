@@ -1,7 +1,7 @@
 function multiplier() {
     // Get the values from the input fields
-    var multiplicand = document.getElementById("number1").value;
-    var multiplicator = document.getElementById("number2").value;
+    let multiplicand = document.getElementById("number1").value;
+    let multiplicator = document.getElementById("number2").value;
 
     // Convert the values to numbers
     multiplicand = parseFloat(multiplicand);
@@ -12,7 +12,7 @@ function multiplier() {
         // If either value is not a number, show an error message
         document.getElementById("output").innerText = "Please enter valid numbers.";
     } else {
-        var outputText = ""; // Initialize an empty string to store the output
+        let outputText = ""; // Initialize an empty string to store the output
 
         // Generate repeated sequence of the first number with 'x' between each number
         for (let index = 0; index < multiplicator; index++) {
@@ -32,8 +32,8 @@ function multiplier() {
 
 function exponents() {
     // Get the values from the input fields
-    var leftNumber = document.getElementById("number1").value;
-    var rightNumber = document.getElementById("number2").value;
+    let leftNumber = document.getElementById("number1").value;
+    let rightNumber = document.getElementById("number2").value;
 
     // Convert the values to numbers
     leftNumber = parseFloat(leftNumber);
@@ -44,7 +44,7 @@ function exponents() {
         // If either value is not a number, show an error message
         document.getElementById("output").innerText = "Please enter valid numbers.";
     } else {
-        var outputText = ""; // Initialize an empty string to store the output
+        let outputText = ""; // Initialize an empty string to store the output
 
         // Generate repeated sequence of the first number with 'x' between each number
         for (let index = 0; index < rightNumber; index++) {
@@ -65,15 +65,15 @@ function exponents() {
 // Function to find prime numbers up to a given number
 function findPrimes() {
     // Get the input value as a number
-    var number = parseInt(document.getElementById("number1").value);
-    var primes = []; // Initialize an array to store prime numbers
+    let number = parseInt(document.getElementById("number1").value);
+    let primes = []; // Initialize an array to store prime numbers
 
     // Loop through numbers from 2 up to the input number
-    for (var i = 2; i <= number; i++) {
-        var isPrime = true; // Assume the current number is prime initially
+    for (let i = 2; i <= number; i++) {
+        let isPrime = true; // Assume the current number is prime initially
 
         // Check for factors of the current number up to its square root
-        for (var j = 2; j <= Math.sqrt(i); j++) {
+        for (let j = 2; j <= Math.sqrt(i); j++) {
             if (i % j === 0) {
                 isPrime = false; // If a factor is found, mark the number as not prime
                 break; // Exit the loop since the number is not prime
@@ -92,9 +92,9 @@ function findPrimes() {
 
 // Function to display prime numbers with a delay
 function displayPrimesWithDelay(primes) {
-    var outputDiv = document.getElementById("output");
+    let outputDiv = document.getElementById("output");
     outputDiv.innerHTML = ""; // Clear previous output
-    var index = 0;
+    let index = 0;
 
     // Function to display the next prime number with a delay
     function displayNextPrime() {
@@ -114,40 +114,40 @@ function displayPrimesWithDelay(primes) {
 
 
 function calculateExponent() {
-    var base = parseFloat(document.getElementById("number1").value);
-    var exponent = parseFloat(document.getElementById("number2").value);
-    var result = Math.pow(base, exponent);
+    let base = parseFloat(document.getElementById("number1").value);
+    let exponent = parseFloat(document.getElementById("number2").value);
+    let result = Math.pow(base, exponent);
 
     // Display the result with some cool effects
     displayResultWithEffects(result);
 }
 
 function displayResultWithEffects(result) {
-    var outputDiv = document.getElementById("output");
+    let outputDiv = document.getElementById("output");
     outputDiv.innerHTML = ""; // Clear previous output
 
-    var steps = 200; // Number of steps for the animation
-    var delay = 30; // Delay in milliseconds between each step
+    let steps = 200; // Number of steps for the animation
+    let delay = 30; // Delay in milliseconds between each step
 
     // Calculate the step value for the animation
-    var stepValue = result / steps;
+    let stepValue = result / steps;
 
     // Initialize the current value
-    var currentValue = 0;
+    let currentValue = 0;
 
     // Perform the animation
-    for (var i = 0; i <= steps; i++) {
+    for (let i = 0; i <= steps; i++) {
         setTimeout(displayStep, i * delay);
 
         // Function to display each step with a delay
         function displayStep() {
-            var variation = 0;
-            if (Math.random() < 0.5) { // Randomly choose to add or subtract variation
-                variation = Math.random() * 0.01 * result; // Randomly vary up to 1% of the result
+            let letiation = 0;
+            if (Math.random() < 0.5) { // Randomly choose to add or subtract letiation
+                letiation = Math.random() * 0.01 * result; // Randomly lety up to 1% of the result
             } else {
-                variation = -Math.random() * 0.01 * result; // Randomly vary up to 1% of the result
+                letiation = -Math.random() * 0.01 * result; // Randomly lety up to 1% of the result
             }
-            var valueToShow = numberWithCommas((currentValue + variation).toFixed(2)); // Apply variation and format with commas
+            let valueToShow = numberWithCommas((currentValue + letiation).toFixed(2)); // Apply letiation and format with commas
             outputDiv.innerText = valueToShow;
             currentValue += stepValue;
         }
@@ -156,7 +156,7 @@ function displayResultWithEffects(result) {
 
 // Function to add commas to a number for better readability
 function numberWithCommas(x) {
-    var parts = x.toString().split(".");
+    let parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
 }
@@ -186,8 +186,8 @@ function factorial() {
 
 // Function to generate a nonsensical sequence of numbers and display them with animation
 function generateNonsensicalSequence() {
-    var inputNumber = parseInt(document.getElementById("number1").value); // Get the input number
-    var outputDiv = document.getElementById("output");
+    let inputNumber = parseInt(document.getElementById("number1").value); // Get the input number
+    let outputDiv = document.getElementById("output");
     outputDiv.innerHTML = ""; // Clear previous output
 
     // Check if the input is a valid number
@@ -196,28 +196,28 @@ function generateNonsensicalSequence() {
         return;
     }
 
-    var sequence = []; // Initialize an array to store the sequence of numbers
+    let sequence = []; // Initialize an array to store the sequence of numbers
 
     // Generate random numbers and add them to the sequence
-    for (var i = 0; i < inputNumber; i++) {
+    for (let i = 0; i < inputNumber; i++) {
         sequence.push(Math.floor(Math.random() * 10000) + Math.floor(Math.random() * 1000)); // Generate random numbers between 0 and 11000
     }
 
     // Clear previous animation classes
     outputDiv.className = "";
 
-    var positions = []; // Initialize an array to store the positions of the numbers
+    let positions = []; // Initialize an array to store the positions of the numbers
 
     // Generate random positions for each number
-    for (var j = 0; j < inputNumber; j++) {
-        var x = Math.floor(Math.random() * window.innerWidth);
-        var y = Math.floor(Math.random() * window.innerHeight);
+    for (let j = 0; j < inputNumber; j++) {
+        let x = Math.floor(Math.random() * window.innerWidth);
+        let y = Math.floor(Math.random() * window.innerHeight);
         positions.push({ x: x, y: y });
     }
 
     // Create and append number elements with animation
     sequence.forEach((number, index) => {
-        var numberElement = document.createElement("div"); // Create a div element for each number
+        let numberElement = document.createElement("div"); // Create a div element for each number
         numberElement.classList.add("number"); // Add a CSS class for styling
         numberElement.textContent = number; // Set the text content to the generated number
         numberElement.style.left = positions[index].x + "px"; // Set the left position
